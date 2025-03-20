@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     kotlin("plugin.serialization") version "1.9.21"
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -66,4 +67,9 @@ dependencies {
 
     implementation("io.insert-koin:koin-android:3.5.6")
     implementation("io.insert-koin:koin-androidx-compose:3.5.6")
+
+    implementation(platform("com.google.firebase:firebase-bom:33.10.0"))
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
+
 }

@@ -1,5 +1,6 @@
 package com.kolu.mediconnect.presentation.screens.auth.login
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -33,7 +34,10 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier) {
+fun LoginScreen(
+    modifier: Modifier = Modifier,
+    onNavigateToRegisterScreen: () -> Unit = {}
+) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisibility by remember { mutableStateOf(false) }
@@ -80,13 +84,16 @@ fun LoginScreen(modifier: Modifier = Modifier) {
             Text(
                 modifier = Modifier
                     .clickable {
-                        /*TODO*/
+                        onNavigateToRegisterScreen()
                     },
-                text = "Sign Up",
+                text = "Register",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.primary
             )
         }
+    }
+    BackHandler(enabled = true) {
+
     }
 }
 

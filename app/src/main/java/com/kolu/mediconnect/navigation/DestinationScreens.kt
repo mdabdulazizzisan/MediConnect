@@ -8,4 +8,7 @@ sealed class DestinationScreens {
 
     @Serializable
     data object Login: DestinationScreens()
+
+    @Serializable
+    data object Register: DestinationScreens()
 }

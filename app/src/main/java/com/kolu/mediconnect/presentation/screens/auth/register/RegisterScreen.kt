@@ -14,6 +14,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,12 +24,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.kolu.mediconnect.presentation.screens.auth.AuthViewModel
 import com.kolu.mediconnect.presentation.screens.auth.login.OutlinedTextFieldPassword
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun RegisterScreen(modifier: Modifier = Modifier) {
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+fun RegisterScreen(
+    modifier: Modifier = Modifier,
+    authViewModel: AuthViewModel = koinViewModel()
+) {
+    val email by authViewModel.email.collectAsState()
+    val password by authViewModel.password.collectAsState()
     var passwordVisibility by remember { mutableStateOf(false) }
 
     Column(
@@ -40,7 +46,7 @@ fun RegisterScreen(modifier: Modifier = Modifier) {
             modifier = Modifier.width(300.dp),
             label = { Text(text = "Email") },
             value = email,
-            onValueChange = { email = it },
+            onValueChange = { authViewModel.setEmail(it) },
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Email,
@@ -56,19 +62,13 @@ fun RegisterScreen(modifier: Modifier = Modifier) {
         OutlinedTextFieldPassword(
             modifier = Modifier.width(300.dp),
             password = password,
-            onPasswordChange = { password = it },
+            onPasswordChange = { authViewModel.setPassword(it) },
             passwordVisibility = passwordVisibility,
             onVisibilityChange = { passwordVisibility = it }
         )
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = { /*TODO*/ }) {
-            Text(text = "Login")
+            Text(text = "Register")
         }
     }
-}
-
-@Preview(showSystemUi = true, showBackground = true)
-@Composable
-private fun RegisterPreview() {
-    RegisterScreen()
 }
