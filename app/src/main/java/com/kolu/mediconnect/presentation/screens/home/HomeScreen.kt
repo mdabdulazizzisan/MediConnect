@@ -12,11 +12,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.kolu.mediconnect.navigation.StartDestinationViewModel
 import com.kolu.mediconnect.presentation.screens.LoadingScreen
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    startDestinationViewModel: StartDestinationViewModel = StartDestinationViewModel(),
+    startDestinationViewModel: StartDestinationViewModel = koinViewModel(),
     onNavigateToLoginScreen: () -> Unit = {}
 ) {
     val startDestinationViewState = startDestinationViewModel.viewState.collectAsState()
