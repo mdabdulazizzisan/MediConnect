@@ -1,5 +1,7 @@
 package com.kolu.mediconnect.presentation.screens.home
 
+import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
@@ -42,10 +44,13 @@ fun HomeScreen(
                 println("Logged In")
                 Text(
                     text = text,
-                    modifier = Modifier
+                    modifier = Modifier.clickable { startDestinationViewModel.logout() }
                 )
             }
         }
 
+    }
+    BackHandler {
+        android.os.Process.killProcess(android.os.Process.myPid())
     }
 }
