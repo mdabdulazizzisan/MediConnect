@@ -38,14 +38,12 @@ fun HomeScreen(
                 }
             }
             StartDestinationViewModel.StartDestinationViewState.LoggedIN -> {
-//                HomeContent(
-//                    onNavigateToLoginScreen = onNavigateToLoginScreen
-//                )
-                println("Logged In")
-                Text(
-                    text = text,
-                    modifier = Modifier.clickable { startDestinationViewModel.logout() }
+                HomeContent(
+                    onBookAnAppointmentClick = {
+                        println("Book an appointment clicked")
+                    }
                 )
+
             }
         }
 
