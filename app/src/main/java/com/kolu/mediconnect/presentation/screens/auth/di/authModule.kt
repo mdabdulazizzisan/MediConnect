@@ -1,6 +1,7 @@
 package com.kolu.mediconnect.presentation.screens.auth.di
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.kolu.mediconnect.data.repository.FirebaseAuthRepository
 import com.kolu.mediconnect.presentation.screens.auth.AuthViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
@@ -13,4 +14,6 @@ val authModule = module {
     singleOf(::FirebaseAuthRepository)
 
     single{FirebaseAuth.getInstance()}
+
+    single { FirebaseFirestore.getInstance() }
 }

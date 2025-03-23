@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -39,6 +40,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import com.kolu.mediconnect.domain.model.UserData
 import com.kolu.mediconnect.presentation.screens.auth.AuthUiState
 import com.kolu.mediconnect.presentation.screens.auth.AuthViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -52,7 +54,7 @@ fun LoginScreen(
 ) {
 
     val context = LocalContext.current
-    val email: String by authViewModel.email.collectAsState()
+    val userData: UserData by authViewModel.userData.collectAsState()
     val password: String by authViewModel.password.collectAsState()
     val authUiState by authViewModel.authUiState.collectAsState()
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -77,10 +79,20 @@ fun LoginScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        //title
+        Text(
+            text = "Login",
+            style = MaterialTheme.typography.headlineLarge,
+            modifier = Modifier
+                .align(Alignment.Start)
+                .padding(start = 50.dp)
+        )
+        Spacer(modifier = Modifier.height(30.dp))
+
         OutlinedTextField(
             modifier = Modifier.width(300.dp),
             label = { Text(text = "Email") },
-            value = email,
+            value = userData.email,
             onValueChange = { authViewModel.setEmail(it) },
             leadingIcon = {
                 Icon(
