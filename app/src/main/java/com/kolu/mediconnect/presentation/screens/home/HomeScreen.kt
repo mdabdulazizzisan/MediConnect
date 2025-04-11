@@ -20,10 +20,10 @@ import org.koin.androidx.compose.koinViewModel
 fun HomeScreen(
     modifier: Modifier = Modifier,
     startDestinationViewModel: StartDestinationViewModel = koinViewModel(),
-    onNavigateToLoginScreen: () -> Unit = {}
+    onNavigateToLoginScreen: () -> Unit = {},
+    onBookAnAppointmentClick: () -> Unit = {}
 ) {
     val startDestinationViewState = startDestinationViewModel.viewState.collectAsState()
-    val text by remember { mutableStateOf("Home Screen") }
     Box(
         modifier = modifier.fillMaxSize()
     ) {
@@ -40,7 +40,7 @@ fun HomeScreen(
             StartDestinationViewModel.StartDestinationViewState.LoggedIN -> {
                 HomeContent(
                     onBookAnAppointmentClick = {
-                        println("Book an appointment clicked")
+                        onBookAnAppointmentClick()
                     }
                 )
 
