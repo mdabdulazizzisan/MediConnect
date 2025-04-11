@@ -30,7 +30,8 @@ fun AppointmentDetailsScreen(
     appointmentViewModel: AppointmentViewModel,
     appointmentId: String,
     onNavigateToHome: () -> Unit,
-    onNavigateToProfile: () -> Unit
+    onNavigateToProfile: () -> Unit,
+    onBackPressed: () -> Unit
 ) {
     val context = LocalContext.current
     var showDeleteDialog by remember { mutableStateOf(false) }
@@ -134,7 +135,7 @@ fun AppointmentDetailsScreen(
         }
     }
     BackHandler {
-        onNavigateToHome()
+        onBackPressed()
     }
 }
 

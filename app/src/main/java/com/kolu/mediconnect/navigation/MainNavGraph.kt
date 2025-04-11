@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -12,6 +13,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.kolu.mediconnect.presentation.screens.appointment.AllAppointmentScreen
 import com.kolu.mediconnect.presentation.screens.appointment.AppointmentBookingScreen
 import com.kolu.mediconnect.presentation.screens.appointment.AppointmentDetailsScreen
 import com.kolu.mediconnect.presentation.screens.appointment.AppointmentViewModel
@@ -40,6 +42,9 @@ fun MainNavGraph(modifier: Modifier = Modifier) {
                 },
                 onBookAnAppointmentClick = {
                     navController.navigate(DestinationScreens.AppointmentBooking)
+                },
+                onProfileClick = {
+                    navController.navigate(DestinationScreens.Profile)
                 }
             )
         }
@@ -94,6 +99,9 @@ fun MainNavGraph(modifier: Modifier = Modifier) {
                                 inclusive = true
                             }
                         }
+                    },
+                    onBackPressed = {
+                        navController.popBackStack()
                     }
                 )
             } else {
@@ -112,6 +120,16 @@ fun MainNavGraph(modifier: Modifier = Modifier) {
             ) {
                 Text(text = "Profile Screen")
             }
+        }
+
+        composable<DestinationScreens.AllAppointments> {
+            AllAppointmentScreen(
+                modifier = Modifier.fillMaxSize(),
+                viewModel = appointmentViewModel,
+                onAppointmentClick = { appointmentId ->
+                    navController.navigate(DestinationScreens.AppointmentDetails(appointmentId))
+                }
+            )
         }
     }
 }

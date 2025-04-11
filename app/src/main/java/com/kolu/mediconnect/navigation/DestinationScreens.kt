@@ -20,4 +20,7 @@ sealed class DestinationScreens {
 
     @Serializable
     data object Profile: DestinationScreens()
+
+    @Serializable
+    data object AllAppointments: DestinationScreens()
 }
