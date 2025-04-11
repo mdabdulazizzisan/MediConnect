@@ -41,6 +41,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.kolu.mediconnect.domain.model.UserData
+import com.kolu.mediconnect.presentation.components.OutlinedTextFieldPassword
 import com.kolu.mediconnect.presentation.screens.auth.AuthUiState
 import com.kolu.mediconnect.presentation.screens.auth.AuthViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -144,39 +145,4 @@ fun LoginScreen(
 }
 
 
-@Composable
-fun OutlinedTextFieldPassword(
-    password: String = "",
-    onPasswordChange: (String) -> Unit,
-    passwordVisibility: Boolean,
-    onVisibilityChange: (Boolean) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    val visibilityIcon = if (passwordVisibility)
-        Icons.Default.Visibility else Icons.Default.VisibilityOff
-    OutlinedTextField(
-        modifier = modifier,
-        label = { Text(text = "Password") },
-        value = password,
-        onValueChange = onPasswordChange,
-        leadingIcon = {
-            Icon(
-                imageVector = Icons.Default.Lock,
-                contentDescription = "Password Icon"
-            )
-        },
-        trailingIcon = {
-            IconButton(onClick = { onVisibilityChange(!passwordVisibility) }) {
-                Icon(
-                    imageVector = visibilityIcon,
-                    contentDescription = if (passwordVisibility) "Hide Password" else "Show Password"
-                )
-            }
-        },
-        visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Password
-        ),
-        singleLine = true
-    )
-}
+

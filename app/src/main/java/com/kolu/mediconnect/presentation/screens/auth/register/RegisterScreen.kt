@@ -37,8 +37,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.kolu.mediconnect.presentation.screens.auth.AuthUiState
 import com.kolu.mediconnect.presentation.screens.auth.AuthViewModel
-import com.kolu.mediconnect.presentation.screens.auth.login.OutlinedTextFieldPassword
-
+import com.kolu.mediconnect.presentation.components.OutlinedTextFieldPassword
 @Composable
 fun RegisterScreen(
     modifier: Modifier = Modifier,
