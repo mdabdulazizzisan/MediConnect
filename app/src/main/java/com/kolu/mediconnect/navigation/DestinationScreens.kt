@@ -11,4 +11,13 @@ sealed class DestinationScreens {
 
     @Serializable
     data object Register: DestinationScreens()
+
+    @Serializable
+    data object AppointmentBooking: DestinationScreens()
+    
+    @Serializable
+    data class AppointmentDetails(val appointmentId: String): DestinationScreens()
+
+    @Serializable
+    data object Profile: DestinationScreens()
 }
