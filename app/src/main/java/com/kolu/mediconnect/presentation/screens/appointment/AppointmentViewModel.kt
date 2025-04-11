@@ -50,8 +50,6 @@ class AppointmentViewModel(
         _appointment.value = _appointment.value.copy(symptoms = symptoms)
     }
 
-
-    // Update the bookAppointment function in AppointmentViewModel.kt
     fun bookAppointment(onSuccess: (String) -> Unit, onFailure: (String) -> Unit) {
         viewModelScope.launch {
             try {
@@ -68,10 +66,38 @@ class AppointmentViewModel(
             }
         }
     }
+
     fun getAppointment(appointmentId: String = _appointment.value.id): Appointment {
         viewModelScope.launch {
             _appointment.value = appointmentRepo.getAppointmentById(appointmentId)!!
         }
         return _appointment.value
+    }
+
+    fun getAllAppointments(): List<Appointment> {
+        var appointments = emptyList<Appointment>()
+        viewModelScope.launch {
+            appointments = appointmentRepo.getAllAppointment()
+        }
+        return appointments
+    }
+
+    fun deleteAppointment(
+        appointment: Appointment,
+        onSuccess: (String) -> Unit = {},
+        onFailure: (String) -> Unit = {}
+    ) {
+        viewModelScope.launch {
+            try {
+                val isDeleted = appointmentRepo.deleteAppointment(appointment)
+                if (isDeleted) {
+                    onSuccess("Appointment deleted successfully")
+                } else {
+                    onFailure("Failed to delete appointment")
+                }
+            } catch (e: Exception) {
+                onFailure(e.message ?: "An error occurred while deleting the appointment")
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.kolu.mediconnect.presentation.screens.appointment
 
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -11,13 +12,12 @@ import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,10 +32,50 @@ fun AppointmentDetailsScreen(
     onNavigateToHome: () -> Unit,
     onNavigateToProfile: () -> Unit
 ) {
+    val context = LocalContext.current
+    var showDeleteDialog by remember { mutableStateOf(false) }
+    
     LaunchedEffect(appointmentId) {
         appointmentViewModel.getAppointment(appointmentId = appointmentId)
     }
     val appointment = appointmentViewModel.appointment.collectAsState().value
+    
+    if (showDeleteDialog) {
+        AlertDialog(
+            onDismissRequest = { showDeleteDialog = false },
+            title = { Text("Delete Appointment") },
+            text = { Text("Are you sure you want to delete this appointment? This action cannot be undone.") },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        showDeleteDialog = false
+                        appointment?.let {
+                            appointmentViewModel.deleteAppointment(
+                                appointment = it,
+                                onSuccess = { message ->
+                                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                                    onNavigateToHome()
+                                },
+                                onFailure = { error ->
+                                    Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
+                                }
+                            )
+                        }
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Red)
+                ) {
+                    Text("Delete")
+                }
+            },
+            dismissButton = {
+                Button(
+                    onClick = { showDeleteDialog = false }
+                ) {
+                    Text("Cancel")
+                }
+            }
+        )
+    }
     
     Column(
         modifier = modifier
@@ -51,6 +91,21 @@ fun AppointmentDetailsScreen(
         }
         
         Spacer(modifier = Modifier.height(16.dp))
+        
+        // Show delete button if appointment is not SCHEDULED or VISITED
+        appointment?.let {
+            if (it.status != AppointmentStatus.SCHEDULED && it.status != AppointmentStatus.VISITED) {
+                Button(
+                    onClick = { showDeleteDialog = true },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Red)
+                ) {
+                    Text("Delete Appointment", modifier = Modifier.padding(8.dp))
+                }
+            }
+        }
         
         // Navigation buttons row
         Row(
@@ -242,3 +297,4 @@ private fun DetailCard(
         }
     }
 }
+
