@@ -4,7 +4,6 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,6 +20,8 @@ import com.kolu.mediconnect.presentation.screens.auth.AuthViewModel
 import com.kolu.mediconnect.presentation.screens.auth.login.LoginScreen
 import com.kolu.mediconnect.presentation.screens.auth.register.RegisterScreen
 import com.kolu.mediconnect.presentation.screens.home.HomeScreen
+import com.kolu.mediconnect.presentation.screens.user.ProfileScreen
+import com.kolu.mediconnect.presentation.screens.user.UserViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -29,6 +30,7 @@ fun MainNavGraph(modifier: Modifier = Modifier) {
     val navController: NavHostController = rememberNavController()
     val authViewModel: AuthViewModel = koinViewModel()
     val appointmentViewModel: AppointmentViewModel = koinViewModel()
+    val userViewModel: UserViewModel = koinViewModel()
 
     NavHost(
         navController = navController,
@@ -114,12 +116,21 @@ fun MainNavGraph(modifier: Modifier = Modifier) {
             }
         }
         composable<DestinationScreens.Profile> {
-            Box(
+            ProfileScreen(
                 modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(text = "Profile Screen")
-            }
+                viewModel = userViewModel,
+                onAppointmentsClick = {
+                    navController.navigate(DestinationScreens.AllAppointments)
+                },
+                onLogoutClick = {
+                    navController.navigate(DestinationScreens.Login) {
+                        popUpTo(DestinationScreens.Home) {
+                            inclusive = true
+                        }
+                    }
+                },
+                authViewModel = authViewModel
+            )
         }
 
         composable<DestinationScreens.AllAppointments> {

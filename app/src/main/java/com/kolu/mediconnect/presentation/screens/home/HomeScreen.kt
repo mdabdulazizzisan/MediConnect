@@ -21,7 +21,8 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     startDestinationViewModel: StartDestinationViewModel = koinViewModel(),
     onNavigateToLoginScreen: () -> Unit = {},
-    onBookAnAppointmentClick: () -> Unit = {}
+    onBookAnAppointmentClick: () -> Unit = {},
+    onProfileClick: () -> Unit = {}
 ) {
     val startDestinationViewState = startDestinationViewModel.viewState.collectAsState()
     Box(
@@ -41,6 +42,9 @@ fun HomeScreen(
                 HomeContent(
                     onBookAnAppointmentClick = {
                         onBookAnAppointmentClick()
+                    },
+                    onProfileClick = {
+                        onProfileClick()
                     }
                 )
 

@@ -4,6 +4,7 @@ import android.app.Application
 import com.kolu.mediconnect.di.appModule
 import com.kolu.mediconnect.di.appointmentModule
 import com.kolu.mediconnect.di.authModule
+import com.kolu.mediconnect.di.userModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -17,7 +18,8 @@ class MediConnectApplication: Application() {
             modules(
                 appModule,
                 authModule,
-                appointmentModule
+                appointmentModule,
+                userModule
             )
         }
     }

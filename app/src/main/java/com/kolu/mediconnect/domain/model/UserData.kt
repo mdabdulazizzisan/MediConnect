@@ -8,4 +8,13 @@ data class UserData(
     val age: Int,
     val emergencyContact: String,
     val createdAt: Long = System.currentTimeMillis()
-)
+){
+    constructor() : this(
+        userId = "",
+        name = "",
+        email = "",
+        phoneNumber = "",
+        age = 0,
+        emergencyContact = ""
+    )
+}

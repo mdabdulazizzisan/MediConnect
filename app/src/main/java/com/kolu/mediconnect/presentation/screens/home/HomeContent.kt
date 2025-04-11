@@ -29,13 +29,14 @@ import com.kolu.mediconnect.ui.theme.MediConnectTheme
 @Composable
 fun HomeContent(
     modifier: Modifier = Modifier,
-    onBookAnAppointmentClick: () -> Unit = {}
+    onBookAnAppointmentClick: () -> Unit = {},
+    onProfileClick: () -> Unit = {}
 ) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
         floatingActionButton = { Fab(onBookAnAppointmentClick = onBookAnAppointmentClick) },
         topBar = {
-            HomeTopBar()
+            HomeTopBar(onProfileClick = {onProfileClick()})
         }
     ) { innerPadding ->
         Column(
@@ -71,7 +72,9 @@ fun Fab(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeTopBar(modifier: Modifier = Modifier) {
+fun HomeTopBar(
+    modifier: Modifier = Modifier,
+    onProfileClick: () -> Unit = {}) {
     TopAppBar(
         title = {
             Column {
@@ -84,7 +87,7 @@ fun HomeTopBar(modifier: Modifier = Modifier) {
         },
         actions = {
             IconButton(
-                onClick = { /*TODO*/ }
+                onClick = { onProfileClick() },
             ) {
                 Icon(
                     imageVector = Icons.Filled.Person,
