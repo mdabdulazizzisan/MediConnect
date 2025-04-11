@@ -14,6 +14,9 @@ class AppointmentViewModel(
     private val _appointment = MutableStateFlow(Appointment())
     val appointment = _appointment.asStateFlow()
 
+    private val _allAppointment = MutableStateFlow(emptyList<Appointment>())
+    val allAppointment = _allAppointment.asStateFlow()
+
     fun updateAppointment(updatedAppointment: Appointment) {
         _appointment.value = updatedAppointment
     }
@@ -75,11 +78,10 @@ class AppointmentViewModel(
     }
 
     fun getAllAppointments(): List<Appointment> {
-        var appointments = emptyList<Appointment>()
         viewModelScope.launch {
-            appointments = appointmentRepo.getAllAppointment()
+            _allAppointment.value = appointmentRepo.getAllAppointment()
         }
-        return appointments
+        return allAppointment.value
     }
 
     fun deleteAppointment(
