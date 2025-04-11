@@ -15,6 +15,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -49,6 +50,14 @@ fun AppointmentBookingScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+            Text(
+                text = "Book An Appointment",
+                style = MaterialTheme.typography.headlineLarge,
+                modifier = Modifier
+                    .align(Alignment.Start)
+                    .padding(start = 50.dp)
+            )
+            Spacer(modifier = Modifier.height(30.dp))
             DropDown(
                 modifier = Modifier.padding(16.dp),
                 items = BangladeshLocations.divisions,
