@@ -1,4 +1,4 @@
-package com.kolu.mediconnect.presentation.screens.auth.di
+package com.kolu.mediconnect.di
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
