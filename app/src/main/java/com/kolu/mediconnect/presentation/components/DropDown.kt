@@ -14,6 +14,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -58,7 +59,14 @@ fun DropDown(
                         contentDescription = "Select option"
                     )
                 },
-                enabled = false
+                enabled = false,
+                colors = OutlinedTextFieldDefaults.colors(
+                    disabledTextColor = OutlinedTextFieldDefaults.colors().focusedTextColor,
+                    disabledContainerColor = OutlinedTextFieldDefaults.colors().focusedContainerColor,
+                    disabledBorderColor = OutlinedTextFieldDefaults.colors().focusedTextColor,
+                    disabledLabelColor = OutlinedTextFieldDefaults.colors().focusedLabelColor,
+                    disabledTrailingIconColor = OutlinedTextFieldDefaults.colors().focusedTrailingIconColor,
+                )
             )
         }
 
