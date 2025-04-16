@@ -358,4 +358,52 @@ object BangladeshLocations {
             "Riverbank Medical Center"
         )
     )
+
+    val doctors = mapOf(
+        "Anwer Khan Modern Medical College Hospital" to listOf(
+            "Dr. Ahsan Habib",
+            "Dr. Shirin Akter",
+            "Dr. Farzana Rahman",
+            "Dr. Shamsul Haque",
+            "Dr. Rashedul Islam"
+        ),
+        "Popular Diagnostic Center" to listOf(
+            "Dr. Shakib Al Hasan",
+            "Dr. Shabnam Akter",
+            "Dr. Tanvir Ahmed",
+            "Dr. Nusrat Jahan",
+            "Dr. Mahmudul Hasan"
+        ),
+        "Green Life Medical College Hospital" to listOf(
+            "Dr. Shirin Akter",
+            "Dr. Farzana Rahman",
+            "Dr. Shamsul Haque",
+            "Dr. Rashedul Islam",
+            "Dr. Ahsan Habib"
+        ),
+    )
+
+    val doctorSchedules = mapOf(
+        "Dr. Ahsan Habib" to listOf(
+            "10:00 AM",
+            "11:00 AM",
+            "12:00 PM",
+            "1:00 PM",
+            "2:00 PM"
+        ),
+        "Dr. Shirin Akter" to listOf(
+            "10:30 AM",
+            "11:30 AM",
+            "12:30 PM",
+            "1:30 PM",
+            "2:30 PM"
+        ),
+        "Dr. Farzana Rahman" to listOf(
+            "10:00 AM",
+            "11:00 AM",
+            "12:00 PM",
+            "1:00 PM",
+            "2:00 PM"
+        ),
+    )
 }

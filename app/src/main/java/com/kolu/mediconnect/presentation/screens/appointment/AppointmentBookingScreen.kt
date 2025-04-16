@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import com.kolu.mediconnect.domain.model.BangladeshLocations
 import com.kolu.mediconnect.presentation.components.DatePickerField
 import com.kolu.mediconnect.presentation.components.DropDown
-import com.kolu.mediconnect.presentation.components.TimePickerField
+import com.kolu.mediconnect.presentation.components.TimeSlotPicker
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -95,20 +95,27 @@ fun AppointmentBookingScreen(
                 selectedItem = appointment.hospital,
                 onItemSelected = {
                     viewModel.updateHospital(it)
+                    // Reset doctor when hospital changes
+                    viewModel.updateDoctorName("")
+                    // Reset time when hospital changes
+                    viewModel.updateTime("")
                 }
             )
             Spacer(modifier = Modifier.height(8.dp))
-            OutlinedTextField(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth(),
-                value = appointment.doctorName,
-                onValueChange = {
+            
+            // Replace TextField with DropDown for doctor selection
+            DropDown(
+                modifier = Modifier.padding(16.dp),
+                items = BangladeshLocations.doctors[appointment.hospital] ?: emptyList(),
+                placeholder = "Select Doctor",
+                selectedItem = appointment.doctorName,
+                onItemSelected = {
                     viewModel.updateDoctorName(it)
-                },
-                label = { Text("Doctor Name") },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+                    // Reset time when doctor changes
+                    viewModel.updateTime("")
+                }
             )
+            
             Spacer(modifier = Modifier.height(8.dp))
             DatePickerField(
                 modifier = Modifier.padding(16.dp),
@@ -116,18 +123,31 @@ fun AppointmentBookingScreen(
                 selectedDate = appointment.date,
                 onDateSelected = {
                     viewModel.updateDate(it)
+                    // Reset time when date changes
+                    viewModel.updateTime("")
                 }
             )
             Spacer(modifier = Modifier.height(8.dp))
-            TimePickerField(
-                modifier = Modifier.padding(16.dp),
-                placeholder = "Appointment Time",
-                selectedTime = appointment.time,
-                onTimeSelected = {
-                    viewModel.updateTime(it)
-                },
-                is24Hour = false // Set to true if you prefer 24-hour format
-            )
+            
+            // Replace TimePickerField with TimeSlotPicker
+            if (appointment.doctorName.isNotEmpty()) {
+                val doctorSchedule = BangladeshLocations.doctorSchedules[appointment.doctorName] ?: emptyList()
+                TimeSlotPicker(
+                    modifier = Modifier.padding(16.dp),
+                    availableTimeSlots = doctorSchedule,
+                    selectedTimeSlot = appointment.time,
+                    onTimeSlotSelected = {
+                        viewModel.updateTime(it)
+                    }
+                )
+            } else {
+                Text(
+                    text = "Select a doctor to view available time slots",
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(16.dp)
+                )
+            }
+            
             Spacer(modifier = Modifier.height(8.dp))
             OutlinedTextField(
                 modifier = Modifier
@@ -180,3 +200,4 @@ fun AppointmentBookingScreen(
 //        )
 //    }
 //}
+
