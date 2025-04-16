@@ -50,7 +50,10 @@ fun MainNavGraph(modifier: Modifier = Modifier) {
                 onProfileClick = {
                     navController.navigate(DestinationScreens.Profile)
                 },
-                onNavigateToEmergencyScreen = { navController.navigate(DestinationScreens.EmergencyScreen) }
+                onNavigateToEmergencyScreen = { navController.navigate(DestinationScreens.EmergencyScreen) },
+                onAllAppointmentScreen = {
+                    navController.navigate(DestinationScreens.AllAppointments)
+                },
             )
         }
         composable<DestinationScreens.Login> {

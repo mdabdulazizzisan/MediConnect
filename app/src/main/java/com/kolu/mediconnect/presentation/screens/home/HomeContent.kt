@@ -83,6 +83,7 @@ fun HomeContent(
     onBookAnAppointmentClick: () -> Unit = {},
     onProfileClick: () -> Unit = {},
     onNavigateToEmergencyScreen: () -> Unit,
+    onAllAppointmentScreen: () -> Unit = {},
     username: String = "John Doe"
 
 ) {
@@ -120,7 +121,7 @@ fun HomeContent(
                     onActionClick = { actionType ->
                         // Handle different actions
                         when (actionType) {
-                            "appointment" -> onBookAnAppointmentClick()
+                            "appointment" -> onAllAppointmentScreen()
                             "emergency" -> onNavigateToEmergencyScreen()
                             else -> {}
                         }
