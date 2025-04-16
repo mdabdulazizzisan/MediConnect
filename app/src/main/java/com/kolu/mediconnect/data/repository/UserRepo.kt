@@ -21,4 +21,19 @@ class UserRepo(
             .toObject(UserData::class.java)
             ?: throw Exception("User data not found")
     }
+    
+    override suspend fun updateUserData(userData: UserData): Boolean {
+        val userId = auth.currentUser?.uid
+            ?: throw Exception("User not logged in")
+            
+        return try {
+            firestore.collection("users")
+                .document(userId)
+                .set(userData)
+                .await()
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
 }

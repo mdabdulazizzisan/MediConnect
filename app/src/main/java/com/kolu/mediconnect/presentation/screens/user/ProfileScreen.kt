@@ -47,8 +47,9 @@ fun ProfileScreen(
     modifier: Modifier = Modifier,
     viewModel: UserViewModel,
     authViewModel: AuthViewModel,
+    onEditProfile: () -> Unit = {},
     onAppointmentsClick: () -> Unit = {},
-    onLogoutClick: () -> Unit = {}
+    onLogoutClick: () -> Unit = {},
 ) {
     val context = LocalContext.current
     val user = viewModel.user.collectAsState()
@@ -166,6 +167,17 @@ fun ProfileScreen(
                 )
                 Spacer(modifier = Modifier.padding(4.dp))
                 Text("View Appointments")
+            }
+            Button(
+                onClick = onEditProfile,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Event,
+                    contentDescription = "Edit Profile"
+                )
+                Spacer(modifier = Modifier.padding(4.dp))
+                Text("Edit Profile")
             }
             
             Spacer(modifier = Modifier.height(8.dp))

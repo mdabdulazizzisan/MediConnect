@@ -20,6 +20,7 @@ import com.kolu.mediconnect.presentation.screens.auth.AuthViewModel
 import com.kolu.mediconnect.presentation.screens.auth.login.LoginScreen
 import com.kolu.mediconnect.presentation.screens.auth.register.RegisterScreen
 import com.kolu.mediconnect.presentation.screens.home.HomeScreen
+import com.kolu.mediconnect.presentation.screens.user.EditProfileScreen
 import com.kolu.mediconnect.presentation.screens.user.ProfileScreen
 import com.kolu.mediconnect.presentation.screens.user.UserViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -129,7 +130,20 @@ fun MainNavGraph(modifier: Modifier = Modifier) {
                         }
                     }
                 },
-                authViewModel = authViewModel
+                authViewModel = authViewModel,
+                onEditProfile = {
+                    navController.navigate(DestinationScreens.EditProfile)
+                }
+            )
+        }
+
+        composable<DestinationScreens.EditProfile>{
+            EditProfileScreen(
+                modifier = Modifier.fillMaxSize(),
+                viewModel = userViewModel,
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
             )
         }
 
