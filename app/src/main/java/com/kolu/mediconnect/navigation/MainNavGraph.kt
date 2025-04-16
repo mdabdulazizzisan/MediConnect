@@ -19,6 +19,7 @@ import com.kolu.mediconnect.presentation.screens.appointment.AppointmentViewMode
 import com.kolu.mediconnect.presentation.screens.auth.AuthViewModel
 import com.kolu.mediconnect.presentation.screens.auth.login.LoginScreen
 import com.kolu.mediconnect.presentation.screens.auth.register.RegisterScreen
+import com.kolu.mediconnect.presentation.screens.emergency.EmergencyScreen
 import com.kolu.mediconnect.presentation.screens.home.HomeScreen
 import com.kolu.mediconnect.presentation.screens.user.EditProfileScreen
 import com.kolu.mediconnect.presentation.screens.user.ProfileScreen
@@ -48,7 +49,8 @@ fun MainNavGraph(modifier: Modifier = Modifier) {
                 },
                 onProfileClick = {
                     navController.navigate(DestinationScreens.Profile)
-                }
+                },
+                onNavigateToEmergencyScreen = { navController.navigate(DestinationScreens.EmergencyScreen) }
             )
         }
         composable<DestinationScreens.Login> {
@@ -156,5 +158,14 @@ fun MainNavGraph(modifier: Modifier = Modifier) {
                 }
             )
         }
+
+        composable<DestinationScreens.EmergencyScreen> {
+            EmergencyScreen(
+                viewModel = userViewModel,
+                onNavigateBack = {navController.popBackStack()}
+            )
+        }
+
+
     }
 }

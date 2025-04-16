@@ -72,6 +72,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.kolu.mediconnect.domain.model.Doctor
 import com.kolu.mediconnect.presentation.components.BannerCarousel
 import com.kolu.mediconnect.ui.theme.MediConnectTheme
 import kotlinx.coroutines.delay
@@ -81,7 +82,9 @@ fun HomeContent(
     modifier: Modifier = Modifier,
     onBookAnAppointmentClick: () -> Unit = {},
     onProfileClick: () -> Unit = {},
+    onNavigateToEmergencyScreen: () -> Unit,
     username: String = "John Doe"
+
 ) {
     val scrollState = rememberScrollState()
     
@@ -114,10 +117,11 @@ fun HomeContent(
                         )
             ) {
                 QuickActionsSection(
-                    onActionClick = { actionType -> 
+                    onActionClick = { actionType ->
                         // Handle different actions
                         when (actionType) {
                             "appointment" -> onBookAnAppointmentClick()
+                            "emergency" -> onNavigateToEmergencyScreen()
                             else -> {}
                         }
                     }
@@ -169,7 +173,7 @@ fun HomeContent(
 @Composable
 fun QuickActionsSection(
     modifier: Modifier = Modifier,
-    onActionClick: (String) -> Unit = {}
+    onActionClick: (String) -> Unit = {},
 ) {
     Column(
         modifier = modifier
@@ -207,7 +211,8 @@ fun QuickActionsSection(
                 title = "Emergency",
                 backgroundColor = MaterialTheme.colorScheme.errorContainer,
                 isPulsing = true,
-                onClick = { onActionClick("emergency") }
+                onClick = {
+                    onActionClick("emergency") }
             )
             
             QuickActionItem(
@@ -739,13 +744,7 @@ fun HomeTopBar(
     )
 }
 
-// Data models
-data class Doctor(
-    val id: Int,
-    val name: String,
-    val specialty: String,
-    val rating: Double
-)
+
 
 data class HealthTip(
     val id: Int,
@@ -788,6 +787,5 @@ fun getDummyHealthTips(): List<HealthTip> {
 @Composable
 private fun HomeContentPrev() {
     MediConnectTheme {
-        HomeContent(username = "John Doe")
     }
 }

@@ -26,4 +26,7 @@ sealed class DestinationScreens {
 
     @Serializable
     data object EditProfile: DestinationScreens()
+
+    @Serializable
+    data object EmergencyScreen: DestinationScreens()
 }
