@@ -44,6 +44,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kolu.mediconnect.R
+import com.kolu.mediconnect.presentation.components.BannerCarousel
 import com.kolu.mediconnect.ui.theme.MediConnectTheme
 import kotlinx.coroutines.delay
 
@@ -127,83 +128,7 @@ fun HomeTopBar(
 
 }
 
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-fun BannerCarousel(
-    modifier: Modifier = Modifier,
-    onBannerClick: () -> Unit
-) {
-    val bannerImages = listOf(
-        R.drawable.image1,
-        R.drawable.image4,
-        R.drawable.image2,
-        R.drawable.image3
 
-    )
-    
-    val pagerState = rememberPagerState(pageCount = { bannerImages.size })
-    
-    LaunchedEffect(Unit) {
-        while(true) {
-            delay(3000)
-            val nextPage = (pagerState.currentPage + 1) % bannerImages.size
-            pagerState.animateScrollToPage(nextPage)
-        }
-    }
-    
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(180.dp)
-        ) {
-            HorizontalPager(
-                state = pagerState,
-                modifier = Modifier.fillMaxSize()
-            ) { page ->
-                Card(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(4.dp)
-                        .clickable { onBannerClick() },
-                    shape = RoundedCornerShape(16.dp)
-                ) {
-                    Image(
-                        painter = painterResource(id = bannerImages[page]),
-                        contentDescription = "Banner ${page + 1}",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
-                    )
-                }
-            }
-            
-            Row(
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .padding(bottom = 8.dp)
-            ) {
-                repeat(bannerImages.size) { index ->
-                    val isSelected = pagerState.currentPage == index
-                    Box(
-                        modifier = Modifier
-                            .padding(horizontal = 4.dp)
-                            .width(if (isSelected) 24.dp else 12.dp)
-                            .height(8.dp)
-                            .clip(CircleShape)
-                            .background(
-                                if (isSelected) MaterialTheme.colorScheme.primary
-                                else MaterialTheme.colorScheme.primary.copy(alpha = 0.5f)
-                            )
-                    )
-                }
-            }
-        }
-    }
-}
 
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
