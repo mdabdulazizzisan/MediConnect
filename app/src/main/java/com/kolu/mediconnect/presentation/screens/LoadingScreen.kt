@@ -18,7 +18,7 @@ fun LoadingScreen(modifier: Modifier = Modifier.fillMaxSize()) {
         verticalArrangement = Arrangement.Center,
         modifier = modifier
     ) {
-        HeartAnimation()
+        LinearProgressIndicator()
     }
 }
 
